@@ -12,29 +12,34 @@ const defaults = {
     h: 'help',
     v: 'version',
     l: 'limit',
-    k: 'keep-open'
+    k: 'keep-open',
+    s: 'source'
   },
   default: {
     'limit': 150,
     'keep-open': false,
-    'latest': false
+    'latest': false,
+    'all': false,
+    'source': 'hacker-news'
   }
 };
 
 const help = `
-Usage: hn [OPTIONS]
+Usage: NEWS_API_KEY=yourkey newsapi [OPTIONS]
 
   CLI to browse Hacker News
 
 Example:
-  $ hn --limit 10 --keep-open
+  $ NEWS_API_KEY=yourkey newsapi --limit 10 --keep-open
 
 Options:
   -v --version              Display current software version
   -h --help                 Display help and usage details
   -l --limit                Limit the number of items to display (defaults to 150)
   -k --keep-open            Wether or not to keep the list open after selecting an item (defaults to false)
+  -s --source               Newsapi source
      --latest               Sort the list by submission date (defaults to false)
+     --all                  All articles
 `;
 
 const run = argv => hn(argv);
@@ -52,13 +57,18 @@ exports.run = argv => {
   // Reset status code at each run
   exports.exitCode = 0;
 
+  if (!process.env.NEWS_API_KEY){
+    exports.stderr.write(help);
+    return;
+  }
+
   if (argv.help) {
     exports.stderr.write(help);
     return;
   }
 
   if (argv.version) {
-    exports.stderr.write(`hn-cli v${version}\n`);
+    exports.stderr.write(`newsapi-cli v${version}\n`);
     return;
   }
 

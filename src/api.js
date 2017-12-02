@@ -1,29 +1,20 @@
 const got = require('got');
 const api = options => {
   return {
-    url: 'https://hacker-news.firebaseio.com',
-    hnUrl: 'https://news.ycombinator.com',
-    version: 'v0',
-
+    url: 'https://newsapi.org',
+    version: 'v2',
+    api_key: process.env.NEWS_API_KEY,
     fetch: url => got(url, options),
 
     base() {
       return `${this.url}/${this.version}`;
     },
 
-    stories() {
-      return `${this.base()}/topstories.json`;
+    stories(source,type) {
+      type = type ? 'everything' : 'top-headlines';
+      return `${this.base()}/${type}?sources=${source}&apiKey=${this.api_key}`;
     },
 
-    // Return URL of story data
-    story(id, shouldPrettyPrint) {
-      return `${this.base()}/item/${id}.json${shouldPrettyPrint ? '?print=pretty' : ''}`;
-    },
-
-    // Return URL of story on HN
-    storyUrl(id) {
-      return `${this.hnUrl}/item?id=${id}`;
-    }
   };
 };
 

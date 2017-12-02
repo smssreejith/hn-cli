@@ -14,15 +14,9 @@ let cache = {};
 
 const limitResults = (results, limit) => results.slice(0, limit);
 
-const fetchTopStories = () => {
-  return api.fetch(api.stories());
-};
+const fetchTopStories = (source,type) =>  api.fetch(api.stories(source,type));
 
-const fetchTopStoriesDetails = stories => {
-  return Promise.all(
-      stories.map(id => api.fetch(api.story(id)))
-    );
-};
+const fetchTopStoriesDetails = stories => stories.body.articles
 
 const sortByTime = (newsest, oldest) => oldest.time - newsest.time;
 
@@ -45,19 +39,15 @@ const ping = (options, shouldMute) => {
 
   log(`Fetching stories`);
 
-  return fetchTopStories()
-    // Limit results before requests are fired
-    .then(response => {
-      return limitResults(response.body, options.limit);
-    })
+  return fetchTopStories(options.source,options.all)
     // Fires all requests
     .then(response => {
       log(`Loading details ${options.latest ? 'of most recent stories' : ''}`);
       return fetchTopStoriesDetails(response);
     })
-    // Returns a formatted array with the response request
+     // Limits 
     .then(response => {
-      return response.map(item => item.body);
+      return limitResults(response, options.limit);
     })
     // Sort the response by submission date if `options.latest`
     .then(response => {
@@ -84,14 +74,7 @@ const ping = (options, shouldMute) => {
 
 const onTableSelect = (index, key) => {
   const selected = cache[index - 1];
-
-  if (!selected.url || key === 'c') {
-    openUrl(api.storyUrl(selected.id));
-  } else if (key === 't') {
-    openUrl(`https://twitter.com/intent/tweet?url=${selected.url}&text=${selected.title}`);
-  } else {
-    openUrl(selected.url);
-  }
+  openUrl(selected.url);
 };
 
 const render = (renderer, data) => renderer.render(data);
