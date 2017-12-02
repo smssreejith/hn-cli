@@ -10,7 +10,7 @@ Thumbs.db
 
 # Node.js stuff
 node_modules
-
+package-lock.json
 # Vim stuff
 *.swp
 *.swo

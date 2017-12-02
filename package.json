@@ -1,20 +1,20 @@
 {
-  "name": "@rafaelrinaldi/hn-cli",
+  "name": "@sreejithgp/newsapi-cli",
   "version": "1.7.1",
-  "description": "CLI to browse Hacker News",
+  "description": "CLI to browse from apinews.org",
   "license": "MIT",
-  "repository": "rafaelrinaldi/hn-cli",
+  "repository": "smssreejith/newsapi-cli",
   "bugs": {
-    "url": "https://github.com/rafaelrinaldi/hn-cli/issues"
+    "url": "https://github.com/smssreejith/newsapi-cli/issues"
   },
-  "homepage": "https://github.com/rafaelrinaldi/hn-cli#readme",
+  "homepage": "https://github.com/smssreejith/newsapi-cli#readme",
   "author": {
     "name": "Rafael Rinaldi",
     "email": "rafael@rinaldi.io",
     "url": "rinaldi.io"
   },
   "bin": {
-    "hn": "./bin/hn-cli"
+    "newsapi": "./bin/newsapi-cli"
   },
   "engines": {
     "node": ">=4"
@@ -35,8 +35,7 @@
   },
   "keywords": [
     "cli",
-    "hn",
-    "hacker",
+    "newsapi",
     "news",
     "feed",
     "rss",
