@@ -1,5 +1,5 @@
 {
-  "name": "@sreejithgp/newsapi-cli",
+  "name": "newsapi-cli",
   "version": "1.7.1",
   "description": "CLI to browse from apinews.org",
   "license": "MIT",

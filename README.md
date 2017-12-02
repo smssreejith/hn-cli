@@ -2,7 +2,7 @@
 ## Install
 
 ```sh
-$ npm install -g @sreejithgp/newsapli-cli
+$ npm install -g newsapli-cli
 ```
 
 ## Usage
